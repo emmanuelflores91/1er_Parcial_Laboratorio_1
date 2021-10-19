@@ -16,6 +16,8 @@ typedef struct
 
 int MostrarMenuDeOpciones ();
 
+int CargarCliente (eCliente listaClientes[], int lenClientes, eLocalidad listaLocalidades[], int lenLocalidades);
+
 int ImprimirUnClientePorId (eCliente listaClientes[], int lenClientes, eLocalidad listaLocalidades[], int lenLocalidades, int id);
 
 int ImprimirClientes(eCliente listaClientes[], int lenClientes, eLocalidad listaLocalidades[], int lenLocalidades);
@@ -40,7 +42,9 @@ int EliminarCliente(eCliente listaClientes[], int lenClientes, ePedido listaPedi
 
 int BajaLocalidad (eCliente listaClientes[], int lenClientes, ePedido listaPedidos[], int lenPedidos, eLocalidad listaLocalidades[], int lenLocalidades, int idLocalidad);
 
+int ContarPedidosPendientes (ePedido listaPedidos[], int lenPedidos, eCliente listaClientes[], int lenClientes);
 
+int ContarPedidosCompletados (ePedido listaPedidos[], int lenPedidos, eCliente listaClientes[], int lenClientes);
 
 
 

@@ -39,7 +39,7 @@ int main()
 				case 1: // OPCION 1 - ALTA DE CLIENTE
 
 					system("cls");
-					if(CargarCliente(listaClientes, LC)!=-1)
+					if(CargarCliente(listaClientes, LC, listaLocalidades, LL)!=-1)
 					{
 						printf("Cliente cargado con exito. Se le asigno el Numero de ID: %d", EncontrarUltimoIdCliente(listaClientes, LC));
 					}

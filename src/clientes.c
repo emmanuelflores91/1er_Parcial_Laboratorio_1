@@ -110,53 +110,6 @@ int EncontrarClientePorId(eCliente list[], int len, int id)
 	return indexID;
 }
 
-int CargarCliente (eCliente list[], int len)
-{
-	int estado;
-	estado = -1;
-
-	if (list != NULL && len > 0 && HayEspacioVacioCliente(list, len))
-	{
-		system("cls");
-		printf("\tALTA DE CLIENTE\n"
-				"_________________________________\n\n");
-
-		for(int i = 0; i< len; i++)
-		{
-			if(list[i].isEmpty)
-			{
-				list[i].idCliente = EncontrarUltimoIdCliente(list, len) + 1;
-
-				while(PedirCadena(" Ingrese nombre de la empresa: ", list[i].nombreEmpresa, sizeof(list[i].nombreEmpresa))==-1)
-				{
-					system("cls");
-					printf("\n Nombre invalido\n");
-				}
-
-				while (PedirCadenaEnRango(" Ingrese CUIT (sin guiones): ", list[i].cuit, sizeof(list[i].cuit),11)==-1)
-				{
-					system("cls");
-					printf("\n CUIT invalido\n");
-				}
-
-				while (PedirCadena(" Ingrese direccion: ", list[i].direccion, sizeof(list[i].direccion))==-1)
-				{
-					system("cls");
-					printf("\n Direccion invalida\n");
-				}
-
-				list[i].idLocalidad = PedirEntero(" Ingrese localidad: ");
-
-				list[i].isEmpty = 0;
-				estado = 0;
-				break;
-			}
-		}
-	}
-		system("cls");
-
-	return estado;
-}
 
 int EditarCliente(eCliente list[], int len, int index)
 {
@@ -187,7 +140,7 @@ int EditarCliente(eCliente list[], int len, int index)
 				break;
 
 				case 2:
-					list[index].idLocalidad = PedirEntero("Ingrese localidad: ");
+					list[index].idLocalidad = PedirEntero("Ingrese ID localidad: ");
 				break;
 			}
 

@@ -22,6 +22,61 @@ int MostrarMenuDeOpciones ()
 		return opcion;
 }
 
+int CargarCliente (eCliente listaClientes[], int lenClientes, eLocalidad listaLocalidades[], int lenLocalidades)
+{
+	int estado;
+	estado = -1;
+
+	if (listaClientes != NULL && lenClientes > 0 && HayEspacioVacioCliente(listaClientes, lenClientes))
+	{
+		system("cls");
+		printf("\tALTA DE CLIENTE\n"
+				"_________________________________\n\n");
+
+		for(int i = 0; i< lenClientes; i++)
+		{
+			if(listaClientes[i].isEmpty)
+			{
+				listaClientes[i].idCliente = EncontrarUltimoIdCliente(listaClientes, lenClientes) + 1;
+
+				while(PedirCadena("\n Ingrese nombre de la empresa: ", listaClientes[i].nombreEmpresa, sizeof(listaClientes[i].nombreEmpresa))==-1)
+				{
+					system("cls");
+					printf("\n Nombre invalido\n");
+				}
+
+				while (PedirCadenaEnRango("\n Ingrese CUIT (sin guiones): ", listaClientes[i].cuit, sizeof(listaClientes[i].cuit),11)==-1)
+				{
+					system("cls");
+					printf("\n CUIT invalido\n");
+				}
+
+				while (PedirCadena("\n Ingrese direccion: ", listaClientes[i].direccion, sizeof(listaClientes[i].direccion))==-1)
+				{
+					system("cls");
+					printf("\n Direccion invalida\n");
+				}
+
+
+				listaClientes[i].idLocalidad = PedirEntero("\n Ingrese ID localidad: ");
+
+				while(EncontrarLocalidadPorId(listaLocalidades, lenLocalidades, listaClientes[i].idLocalidad)==-1)
+				{
+					printf("\n ID incorrecto.");
+					listaClientes[i].idLocalidad = PedirEntero("\n Ingrese ID localidad: ");
+				}
+
+				listaClientes[i].isEmpty = 0;
+				estado = 0;
+				break;
+			}
+		}
+	}
+		system("cls");
+
+	return estado;
+}
+
 int ImprimirUnClientePorId (eCliente listaClientes[], int lenClientes, eLocalidad listaLocalidades[], int lenLocalidades, int id)
 {
 	int estado;
@@ -386,6 +441,129 @@ int BajaLocalidad (eCliente listaClientes[], int lenClientes, ePedido listaPedid
 	}
 	return estado;
 }
+
+int ContarPedidosPendientes (ePedido listaPedidos[], int lenPedidos, eCliente listaClientes[], int lenClientes)
+{
+	int estado;
+	estado = -1;
+	int MayorCantidadPedidos;
+	int banderaPedidos;
+	banderaPedidos = 1;
+
+	eAuxiliar listaAuxiliares[LC];
+
+	if (listaAuxiliares != NULL && LC > 0 && listaPedidos != NULL && lenPedidos > 0 && HayUnPedido(listaPedidos, lenPedidos))
+	{
+		for (int i = 0; i < lenClientes; i++)
+		{
+			if(!listaClientes[i].isEmpty)
+			{
+				listaAuxiliares[i].idCliente = listaClientes[i].idCliente;
+				listaAuxiliares[i].contador = 0;
+			}
+		}
+
+		for(int i=0; i<LC; i++)
+		{
+			if(!listaClientes[i].isEmpty)
+
+			for (int j = 0; j < lenPedidos; j++)
+			{
+				if(!listaPedidos[j].isEmpty  && listaPedidos[j].idCliente == listaAuxiliares[i].idCliente && listaPedidos[j].estado == PENDIENTE)
+				{
+					listaAuxiliares[i].contador ++;
+				}
+			}
+		}
+
+		for(int i=0; i<LC; i++)
+		{
+			if (!listaClientes[i].isEmpty && (banderaPedidos || listaAuxiliares[i].contador > MayorCantidadPedidos))
+			{
+				MayorCantidadPedidos = listaAuxiliares[i].contador;
+				banderaPedidos = 0;
+			}
+		}
+
+		printf("\n Los clientes con mas pedidos pendientes son: ");
+
+
+		printf("\n\tID\tEMPRESA\t\tCUIT\t\t DIRECCION\t  LOCALIDAD\n"
+				"_____________________________________________________________________________\n");
+
+			for(int i = 0; i < lenClientes; i++)
+			{
+				if (!listaClientes[i].isEmpty && listaAuxiliares[i].contador == MayorCantidadPedidos)
+				{
+					printf("\t%-7d %-15s\n", listaClientes[i].idCliente, listaClientes[i].nombreEmpresa);
+				}
+			}
+
+	}
+	return estado;
+}
+
+
+int ContarPedidosCompletados (ePedido listaPedidos[], int lenPedidos, eCliente listaClientes[], int lenClientes)
+{
+	int estado;
+	estado = -1;
+	int MayorCantidadPedidos;
+	int banderaPedidos;
+	banderaPedidos = 1;
+
+	eAuxiliar listaAuxiliares[LC];
+
+	if (listaAuxiliares != NULL && LC > 0 && listaPedidos != NULL && lenPedidos > 0 && HayUnPedido(listaPedidos, lenPedidos))
+	{
+		for (int i = 0; i < lenClientes; i++)
+		{
+			if(!listaClientes[i].isEmpty)
+			{
+				listaAuxiliares[i].idCliente = listaClientes[i].idCliente;
+				listaAuxiliares[i].contador = 0;
+			}
+		}
+
+		for(int i=0; i<LC; i++)
+		{
+			if(!listaClientes[i].isEmpty)
+
+			for (int j = 0; j < lenPedidos; j++)
+			{
+				if(!listaPedidos[j].isEmpty  && listaPedidos[j].idCliente == listaAuxiliares[i].idCliente && listaPedidos[j].estado == COMPLETADO)
+				{
+					listaAuxiliares[i].contador ++;
+				}
+			}
+		}
+
+		for(int i=0; i<LC; i++)
+		{
+			if (!listaClientes[i].isEmpty && (banderaPedidos || listaAuxiliares[i].contador > MayorCantidadPedidos))
+			{
+				MayorCantidadPedidos = listaAuxiliares[i].contador;
+				banderaPedidos = 0;
+			}
+		}
+
+		printf("\n Los clientes con mas pedidos completados son: ");
+
+		printf("\n\tID\tEMPRESA\t\tCUIT\t\t DIRECCION\t  LOCALIDAD\n"
+				"_____________________________________________________________________________\n");
+
+			for(int i = 0; i < lenClientes; i++)
+			{
+				if (!listaClientes[i].isEmpty && listaAuxiliares[i].contador == MayorCantidadPedidos)
+				{
+					printf("\t%-7d %-15s\n", listaClientes[i].idCliente, listaClientes[i].nombreEmpresa);
+				}
+			}
+
+	}
+	return estado;
+}
+
 
 
 

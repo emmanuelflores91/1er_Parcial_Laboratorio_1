@@ -29,7 +29,6 @@ int ContarClientes (eCliente list[], int len);
 int EncontrarUltimoIdCliente(eCliente list[], int len);
 
 
-int CargarCliente (eCliente list[], int len);
 
 
 int EncontrarClientePorId(eCliente list[], int len, int id);
