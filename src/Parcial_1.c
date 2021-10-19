@@ -60,7 +60,7 @@ int main()
 						idBuscado = PedirEnteroPositivo("\n\n Ingrese ID del cliente que desear modificar: ");
 						system("cls");
 						printf("\t\tMODIFICACION DE CLIENTE\n"
-								"___________________________________________________________________\n\n");
+								"\n___________________________________________________________________\n\n");
 
 						ImprimirUnClientePorId(listaClientes, LC, listaLocalidades, LL, idBuscado);
 

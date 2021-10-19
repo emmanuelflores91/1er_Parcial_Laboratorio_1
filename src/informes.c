@@ -554,8 +554,8 @@ int ContarPedidosCompletados (ePedido listaPedidos[], int lenPedidos, eCliente l
 
 		printf("\n Los clientes con mas pedidos completados son: ");
 
-		printf("\n\tID\tEMPRESA\\n"
-				"__________________________________________________\n");
+		printf("\n\tID\tEMPRESA\n"
+				" __________________________________________________\n");
 
 			for(int i = 0; i < lenClientes; i++)
 			{
