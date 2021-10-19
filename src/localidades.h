@@ -1,7 +1,7 @@
 
 #ifndef LOCALIDADES_H_
 #define LOCALIDADES_H_
-#define LL 10 // Lista de localidades
+#define LL 10 // cantidad de localidades
 
 typedef struct
 {

@@ -14,7 +14,12 @@ int MostrarMenuDeOpciones ()
 				" 7 - Imprimir pedidos pendientes.\n"
 				" 8 - Imprimir pedidos procesados.\n"
 				" 9 - Pedidos pendientes por localidad.\n"
-				" 10 - Cantidad de kilos reciclados promedio por cliente.\n");
+				" 10 - Cantidad de kilos reciclados promedio por cliente.\n"
+				" 11 - Alta de localidad.\n"
+				" 12 - Baja de localidad.\n"
+				" 13 - Modificar localidad.\n"
+				" 14 - Clientes con mas pedidos pendientes.\n"
+				" 15 - Clientes con mas pedidos completados.\n");
 		printf("\n.......................................................\n");
 
 		opcion = PedirEnteroEnRango("\n Ingrese una opcion: ", 0, 100);
@@ -488,8 +493,8 @@ int ContarPedidosPendientes (ePedido listaPedidos[], int lenPedidos, eCliente li
 		printf("\n Los clientes con mas pedidos pendientes son: ");
 
 
-		printf("\n\tID\tEMPRESA\t\tCUIT\t\t DIRECCION\t  LOCALIDAD\n"
-				"_____________________________________________________________________________\n");
+		printf("\n\tID\tEMPRESA\n"
+				"\n__________________________________________\n");
 
 			for(int i = 0; i < lenClientes; i++)
 			{
@@ -549,8 +554,8 @@ int ContarPedidosCompletados (ePedido listaPedidos[], int lenPedidos, eCliente l
 
 		printf("\n Los clientes con mas pedidos completados son: ");
 
-		printf("\n\tID\tEMPRESA\t\tCUIT\t\t DIRECCION\t  LOCALIDAD\n"
-				"_____________________________________________________________________________\n");
+		printf("\n\tID\tEMPRESA\\n"
+				"__________________________________________________\n");
 
 			for(int i = 0; i < lenClientes; i++)
 			{

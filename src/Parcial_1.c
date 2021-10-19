@@ -201,7 +201,19 @@ int main()
 					printf("%.2f kg", promedioReciclado);
 				break;
 
-				case 20:
+				case 11: //ALTA LOCALIDAD
+					if(HayEspacioVacioLocalidad(listaLocalidades, LL))
+					{
+						CargarLocalidad(listaLocalidades, LL);
+					}
+					else
+					{
+						printf("\n No se pueden cargar mas localidades.");
+					}
+
+				break;
+
+				case 12: //BAJA LOCALIDAD
 					ImprimirConOpciones(ImprimirLocalidades(listaLocalidades, LL), "\n ERROR", "");
 
 					idBuscado = PedirEnteroPositivo("\n\n Ingrese ID de la localidad que desear eliminar: ");
@@ -219,6 +231,28 @@ int main()
 							printf("\n Baja cancelada");
 						}
 					}
+				break;
+
+				case 13: // MODIFICAR LOCALIDAD
+					ImprimirConOpciones(ImprimirLocalidades(listaLocalidades, LL), "\n ERROR", "");
+
+					idBuscado = PedirEnteroPositivo("\n\n Ingrese ID de la localidad que desear modificar: ");
+
+					ImprimirConOpciones(EditarLocalidad(listaLocalidades, LL, EncontrarLocalidadPorId(listaLocalidades, LL, idBuscado))
+							, "\n No se pudo Editar", "\n Localidad editada");
+
+				break;
+
+				case 14: // MAS PEDIDOS PENDIENTES
+
+					ContarPedidosPendientes(listaPedidos, LP, listaClientes, LC);
+
+				break;
+
+				case 15: // MAS PEDIDOS COMPLETADOS
+
+					ContarPedidosCompletados(listaPedidos, LP, listaClientes, LC);
+
 				break;
 
 
