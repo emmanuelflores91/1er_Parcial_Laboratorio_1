@@ -36,15 +36,18 @@ int ImprimirPedidosCompletadosConDatosCliente(ePedido listaPedidos[], int lenPed
 
 int ContarPedidosPendientesPorLocalidad (ePedido listaPedidos[], int lenPedidos, eCliente listaClientes[], int lenClientes, eLocalidad listaLocalidades[], int lenLocalidades, int* cantidadPendientes);
 
-int CalcularPromedioKilosReciclados (float kilosTotales, int cantidadClientes);
+int CalcularPromedioKilosReciclados (float kilosTotales, int cantidadClientes, float* promedio);
 
 int EliminarCliente(eCliente listaClientes[], int lenClientes, ePedido listaPedidos[], int lenPedidos, int id);
 
 int BajaLocalidad (eCliente listaClientes[], int lenClientes, ePedido listaPedidos[], int lenPedidos, eLocalidad listaLocalidades[], int lenLocalidades, int idLocalidad);
 
-int ContarPedidosPendientes (ePedido listaPedidos[], int lenPedidos, eCliente listaClientes[], int lenClientes);
+int ContarPedidosPorEstado (ePedido listaPedidos[], int lenPedidos, eCliente listaClientes[], int lenClientes, int estadoPedido);
 
-int ContarPedidosCompletados (ePedido listaPedidos[], int lenPedidos, eCliente listaClientes[], int lenClientes);
+
+int EditarCliente(eCliente listaClientes[], int lenClientes, eLocalidad listaLocalidades[], int lenLocalidades, int index);
+
+int VerificarCargaDeKilos (float kilosTotales, float* kilosHDPE, float* kilosLDPE, float* kilosPP, char mensajeError[], int cantidadReintentos);
 
 
 

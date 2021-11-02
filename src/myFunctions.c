@@ -1,96 +1,216 @@
 #include "myFunctions.h"
 
-int PedirEntero (char mensaje[])
+int PedirEntero (int* numero, char mensaje[], char mensajeError[], int cantidadReintentos)
 {
-	int numero;
-	char cadena[5000];
+	int estado;
+	int longitud;
+	char cadena[10];
 
-	while (PedirCadena(mensaje, cadena, sizeof(cadena))==-1 || ComprobarSiEsEntero(cadena)==0)
-	{
-		printf("\nERROR. Numero incorrecto.\n");
-	}
-	numero = atoi(cadena);
+	estado = -1;
+	longitud = sizeof(cadena);
 
-	return numero;
-}
-
-
-int PedirEnteroPositivo (char mensaje[])
-{
-	int numero;
-	char cadena[5000];
-
-	while (PedirCadena(mensaje, cadena, sizeof(cadena))==-1 || ComprobarSiEsEntero(cadena)==0 || atoi(cadena)<0)
-	{
-		printf("\nERROR. Numero incorrecto.\n");
-	}
-	numero = atoi(cadena);
-
-	return numero;
-}
-
-
-int PedirEnteroEnRango (char mensaje [], int minimo, int maximo)
-{
-	int numero;
-	char cadena [5000];
-
-	while (PedirCadena(mensaje, cadena, sizeof(cadena)) == -1 ||
-			ComprobarSiEsEntero(cadena) == 0 ||
-			atoi(cadena) < minimo || atoi(cadena) > maximo)
-	{
-		printf("\nERROR. Numero incorrecto.\n");
-	}
-	numero = atoi(cadena);
-
-	return numero;
-}
-
-float PedirFlotante (char mensaje [])
-{
-	float numero;
-	char cadena[5000];
-	while(PedirCadena(mensaje, cadena, sizeof(cadena)) == -1 ||
-		ComprobarSiEsFlotante(cadena) == 0 )
-	{
-		printf("\nERROR. Numero incorrecto.\n");
-	}
-
-	numero = atof(cadena);
-	return numero;
-}
-
-float PedirFlotanteEnRango (char mensaje [], float minimo, float maximo)
-{
-	float numero;
-	char cadena [5000];
-
-	while(PedirCadena(mensaje, cadena, sizeof(cadena)) == -1 ||
-			ComprobarSiEsFlotante(cadena) == 0 || atof(cadena) < minimo || atof(cadena) > maximo)
+	do
 		{
-			printf("\nERROR. Numero incorrecto.\n");
+			printf("%s", mensaje);
+			if (LeerCadena(cadena, longitud) == 0 && ComprobarSiEsEntero(cadena) == 1)
+			{
+				*numero = atoi(cadena);
+				estado = 0;
+				break;
+			}
+
+			printf("%s",mensajeError);
+
+			cantidadReintentos--;
+
+		}while(cantidadReintentos >=0);
+
+	return estado;
+}
+
+int PedirEntero2 (int* numero, char mensaje[], char mensajeError[], int cantidadReintentos, int* contadorErrores)
+{
+	int estado;
+	char cadena[10];
+	int longitud;
+	estado = -1;
+	contadorErrores = 0;
+	longitud = sizeof(cadena);
+
+	do
+		{
+			printf("%s", mensaje);
+			if (LeerCadena(cadena, longitud) == 0 && ComprobarSiEsEntero(cadena) == 1)
+			{
+				*numero = atoi(cadena);
+				estado = 0;
+				break;
+			}
+			contadorErrores ++;
+
+			printf("%s",mensajeError);
+
+			cantidadReintentos--;
+
+		}while(cantidadReintentos >= 0);
+
+	if(cantidadReintentos < 0)
+	{
+		estado = -2;
+	}
+
+	return estado;
+}
+
+
+int PedirEnteroPositivo (int* numero, char mensaje[], char mensajeError[], int cantidadReintentos)
+{
+	int estado;
+	int longitud;
+	char cadena[10];
+
+	estado = -1;
+	longitud = sizeof(cadena);
+
+	do
+		{
+			printf("%s", mensaje);
+			if (LeerCadena(cadena, longitud) == 0 &&
+				ComprobarSiEsEntero(cadena) == 1 && atoi(cadena) >= 0)
+			{
+				*numero = atoi(cadena);
+				estado = 0;
+				break;
+			}
+
+			printf("%s",mensajeError);
+			cantidadReintentos--;
+
+		}while(cantidadReintentos >=0);
+
+
+	return estado;
+}
+
+
+int PedirEnteroEnRango (int* numero, char mensaje[], char mensajeError[], int minimo, int maximo, int cantidadReintentos)
+{
+	int longitud;
+	int estado;
+	char cadena [10];
+
+	estado = -1;
+	longitud = sizeof(cadena);
+
+
+	do
+	{
+		printf("%s", mensaje);
+		if(LeerCadena(cadena, longitud) == 0 &&
+		ComprobarSiEsEntero(cadena) == 1 &&
+		atoi(cadena) >= minimo && atoi(cadena) <= maximo)
+		{
+			*numero = atoi(cadena);
+			estado = 0;
+			break;
+		}
+		cantidadReintentos--;
+		printf("%s", mensajeError);
+
+
+	}while(cantidadReintentos >=0);
+
+	return estado;
+}
+
+float PedirFlotante (float* numero, char mensaje [], char mensajeError[], int cantidadReintentos)
+{
+	int estado;
+	char cadena[10];
+	int longitud;
+
+	estado = -1;
+	longitud = sizeof(cadena);
+
+
+	do
+	{	printf("%s", mensaje);
+		if(LeerCadena(cadena, longitud) == 0 &&
+			ComprobarSiEsFlotante(cadena) == 1)
+		{
+			*numero = atof(cadena);
+			estado = 0;
+			break;
 		}
 
-	numero = atof(cadena);
+		cantidadReintentos--;
+		printf("%s", mensajeError);
 
-	return numero;
+	}while(cantidadReintentos >=0);
+
+	return estado;
 }
 
-double PedirFlotanteGrande (char mensaje[])
+int PedirFlotanteEnRango (float* numero, char mensaje[], char mensajeError[], float minimo, float maximo, int cantidadReintentos)
 {
-    double numero;
-	char cadena[5000];
-	while(PedirCadena(mensaje, cadena, sizeof(cadena)) == -1 ||
-			ComprobarSiEsFlotante(cadena) == 0 )
-	{
-		printf("\nERROR. Numero incorrecto.\n");
-	}
+	int longitud;
+	int estado;
+	char cadena [10];
 
-	numero = atof(cadena);
-	return numero;
+	estado = -1;
+	longitud = sizeof(cadena);
+
+
+	do
+	{
+		printf("%s", mensaje);
+		if(LeerCadena(cadena, longitud) == 0 &&
+		ComprobarSiEsEntero(cadena) == 1 &&
+		atof(cadena) >= minimo && atof(cadena) <= maximo)
+		{
+			*numero = atof(cadena);
+			estado = 0;
+			break;
+		}
+		cantidadReintentos--;
+		printf("%s", mensajeError);
+
+
+	}while(cantidadReintentos >=0);
+
+	return estado;
 }
 
-char PedirCaracter (char mensaje [])
+int PedirFlotanteGrande (double* numero, char mensaje [], char mensajeError[], int cantidadReintentos)
+{
+	int estado;
+	char cadena[20];
+	int longitud;
+
+	estado = -1;
+	longitud = sizeof(cadena);
+
+
+	do
+	{
+		printf("%s", mensaje);
+		if(LeerCadena(cadena, longitud) == 0 &&
+			ComprobarSiEsFlotante(cadena) == 1)
+		{
+			*numero = atof(cadena);
+			estado = 0;
+			break;
+		}
+
+		cantidadReintentos--;
+		printf("%s", mensajeError);
+
+	}while(cantidadReintentos >=0);
+
+	return estado;
+}
+
+/*char PedirCaracter (char mensaje [])
 {
 	char caracter;
 	printf("%s", mensaje);
@@ -98,18 +218,16 @@ char PedirCaracter (char mensaje [])
 	scanf("%c", &caracter);
 	caracter = toupper(caracter);
 	return caracter;
-}
+}*/
 
-int PedirCadena(char mensaje [], char cadena[], int longitud)
+int LeerCadena(char cadena[], int longitud)
 {
 	char cadenaAuxiliar[5000];
 	int longitudAux;
 	int cantCaracteres;
-	int retorno = -1;
+	int estado = -1;
 	longitudAux = sizeof(cadenaAuxiliar);
 
-
-	printf("%s", mensaje);
 	if(cadena != NULL && longitud > 0)
 	{
 		fflush(stdin);
@@ -123,21 +241,47 @@ int PedirCadena(char mensaje [], char cadena[], int longitud)
 			if(cantCaracteres <= longitud)
 			{
 				strncpy(cadena,cadenaAuxiliar,longitud);
-				retorno=0;
+				estado = 0;
 			}
 		}
 	}
-	return retorno;
+	return estado;
 }
 
-int PedirCadenaEnRango(char mensaje [], char cadena[], int longitud, int minimo)
+
+int PedirCadena(char mensaje[], char mensajeError[], char cadena[], int longitud, int cantidadReintentos)
 {
+	int estado;
+	estado = -1;
+
+	do
+	{
+		printf("%s", mensaje);
+		if (LeerCadena(cadena, longitud)==0)
+		{
+			estado = 0;
+			break;
+		}
+
+		printf("%s",mensajeError);
+		cantidadReintentos--;
+
+	}while(cantidadReintentos >=0);
+
+
+	return estado;
+}
+
+int PedirCadenaEnRango(char mensaje [], char mensajeError, char cadena[], int longitud, int minimo)
+{
+	int estado;
 	char cadenaAuxiliar[5000];
 	int longitudAux;
 	int cantCaracteres;
-	int retorno = -1;
-	longitudAux = sizeof(cadenaAuxiliar);
 
+	longitudAux = sizeof(cadenaAuxiliar);
+	estado = -1;
+	cantCaracteres = strlen(cadenaAuxiliar);
 
 	printf("%s", mensaje);
 	if(cadena != NULL && longitud > 0)
@@ -153,16 +297,16 @@ int PedirCadenaEnRango(char mensaje [], char cadena[], int longitud, int minimo)
 			if(cantCaracteres-1 <= longitud-1 && cantCaracteres-1 >= minimo)
 			{
 				strncpy(cadena,cadenaAuxiliar,longitud);
-				retorno=0;
+				estado = 0;
 			}
 		}
 	}
-	return retorno;
+	return estado;
 }
 
 
 
-int ExcluirEntero (int numeroIngresado, int numeroExcluido)
+/*int ExcluirEntero (int numeroIngresado, int numeroExcluido)
 {
 
 		while (numeroIngresado == numeroExcluido)
@@ -204,7 +348,7 @@ int DistinguirEnteroDeFlotante (float numeroIngresado)
 
 	return esEntero;
 }
-
+*/
 
 int ComprobarSiEsFlotante (char datoIngresado[])
 {
@@ -297,19 +441,19 @@ void ImprimirCaracter (char mensaje [], char caracterParaImprimir)
 	printf("%s %c", mensaje, caracterParaImprimir);
 }
 
-void ImprimirConOpciones( int estado, char mensajeError[], char mensajeOk[])
+void ImprimirDosMensajes( int estado, char mensajeMenos1[], char mensajeCero[])
 {
 	if(estado == -1)
 	{
-		printf("%s", mensajeError);
+		printf("%s", mensajeMenos1);
 	}
 	else
 	{
-		printf("%s", mensajeOk);
+		printf("%s", mensajeCero);
 	}
 }
 
-void CargaSecuencialVectorDeEnteros (int vector[], int longitud, char mensaje[])
+/*void CargaSecuencialVectorDeEnteros (int vector[], int longitud, char mensaje[])
 {
 	for (int i = 0; i < longitud; i++)
 		{
@@ -431,7 +575,7 @@ double CalcularFactorialDeUnNumero (double numero)
 	}
 
 	return resultadoFactorial;
-}
+}*/
 
 
 

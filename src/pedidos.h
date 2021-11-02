@@ -23,6 +23,9 @@ int InicializarPedidos(ePedido list[], int len);
 
 int HayUnPedido (ePedido list[], int len);
 
+int HayPedidosCompletados (ePedido list[], int len);
+
+
 int EncontrarPedidoPorId(ePedido list[], int len, int id);
 
 
@@ -35,7 +38,7 @@ int CargarPedido (ePedido list[], int len, int idCliente);
 
 int ContarPedidosPendientePorID(ePedido list[], int len, int idCliente, int* cantidadPendientes);
 
-int SumarKilosProcesados (ePedido list[], int len);
+int SumarKilosProcesados (ePedido list[], int len, float* kilos);
 
 
 

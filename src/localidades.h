@@ -25,6 +25,9 @@ int EncontrarLocalidadPorId(eLocalidad list[], int len, int id);
 
 int EditarLocalidad(eLocalidad list[], int len, int index);
 
+int PedirLocalidad (eLocalidad list[], char mensajeError[], int len, int cantidadReintentos, int* idEncontrado);
+
+
 
 
 

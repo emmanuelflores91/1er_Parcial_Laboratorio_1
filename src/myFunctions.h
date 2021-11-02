@@ -10,23 +10,23 @@
 /// @brief = Pide un entero y lo retorna.
 /// @param mensaje = El mensaje deseado para pedir el número.
 /// @return = Retorna el número ingresado.
-int PedirEntero (char mensaje []);
+int PedirEntero (int* numero, char mensaje[], char mensajeError[], int cantidadReintentos);
+
+int PedirEntero2 (int* numero, char mensaje[], char mensajeError[], int cantidadReintentos, int* contadorErrores);
+
+int PedirEnteroEnRango (int* numero, char mensaje[], char mensajeError[], int minimo, int maximo, int cantidadReintentos);
+
+
 
 /// @brief = Pide un entero mayor a cero y lo retorna.
 /// @param mensaje = El mensaje deseado para pedir el número.
 /// @return = Retorna el número ingresado.
-int PedirEnteroPositivo (char mensaje[]);
-
-
-/// @brief = Pide un flotante y lo retorna.
-/// @param mensaje = El mensaje deseado para pedir el número.
-/// @return = Retorna el número ingresado.
-float PedirFlotante (char mensaje []);
+int PedirEnteroPositivo (int* numero, char mensaje[], char mensajeError[], int cantidadIntentos);
 
 /// @brief = Pide un double y lo retorna.
 /// @param mensaje = El mensaje deseado para pedir el numero.
 /// @return = Retorna el numero ingresado.
-double PedirFlotanteGrande (char mensaje[]);
+int PedirFlotanteGrande (double* numero, char mensaje [], char mensajeError[], int cantidadReintentos);
 
 
 /// @brief = Pide un caracter que será la respuesta que elija el usuario.
@@ -34,18 +34,21 @@ double PedirFlotanteGrande (char mensaje[]);
 /// @return = Retorna el caracter ingresado convertido a mayusculas.
 char PedirCaracter (char mensaje []);
 
+
+int LeerCadena(char cadena[], int longitud);
+
 /// @brief Pide una cadena de caracteres validando que no supere la longitud límite.
 /// @param cadena = La variable donde se almacena la cadena.
 /// @param longitud = el tamaño máximo del vector de caracteres.
 /// @return = -1 en caso de error, 0 si se pudo realizar.
-int PedirCadena(char mensaje [], char cadena[], int longitud);
+int PedirCadena(char mensaje[], char mensajeError[], char cadena[], int longitud, int cantidadIntentos);
 
 /// @brief Pide una cadena de caracteres validando que no supere la longitud límite y que el largo no sea menor al mínimo.
 /// @param cadena = La variable donde se almacena la cadena.
 /// @param longitud = el tamaño máximo del vector de caracteres.
 /// @param minimo = tamaño minimo de la cadena.
 /// @return = -1 en caso de error, 0 si se pudo realizar.
-int PedirCadenaEnRango(char mensaje [], char cadena[], int longitud, int minimo);
+int PedirCadenaEnRango(char mensaje [], char mensajeError, char cadena[], int longitud, int minimo);
 
 /// @brief = Imprime un numero flotante.
 /// @param mensaje = El mensaje que se muestra junto con el número.
@@ -67,7 +70,7 @@ void ImprimirCaracter (char mensaje [], char caracterParaImprimir);
 /// @param mensajeError = el mensaje en caso de error.
 /// @param mensajeOk = el mensaje en caso de realizar la operación.
 /// @param estado = rebibe los valores para mostrar un mensaje o el otro.
-void ImprimirConOpciones( int estado, char mensajeError[], char mensajeOk[]);
+void ImprimirDosMensajes( int estado, char mensajeMenos1[], char mensajeCero[]);
 
 
 /// @brief = Pide un entero y se asegura que esté en un rango deseado.
@@ -75,14 +78,14 @@ void ImprimirConOpciones( int estado, char mensajeError[], char mensajeOk[]);
 /// @param minimo = El valor mínimo aceptado.
 /// @param maximo = El valor máximo aceptado.
 /// @return = Retorna el entero validado.
-int PedirEnteroEnRango (char mensaje [], int minimo, int maximo);
+float PedirFlotante (float* numero, char mensaje [], char mensajeError[], int cantidadReintentos);
 
 /// @brief = Pide un flotante y se asegura que esté en un rango deseado.
 /// @param mensaje = El mensaje al pedir el flotante.
 /// @param minimo = El valor mínimo aceptado.
 /// @param maximo = El valor máximo aceptado.
 /// @return = Retorna el flotante validado.
-float PedirFlotanteEnRango (char mensaje [], float minimo, float maximo);
+int PedirFlotanteEnRango (float* numero, char mensaje[], char mensajeError[], float minimo, float maximo, int cantidadReintentos);
 
 /// @brief = No permite el ingreso de un número entero específico.
 /// @param numeroIngresado = El número que se ingresa el cual se va a comparar con el número excluido.

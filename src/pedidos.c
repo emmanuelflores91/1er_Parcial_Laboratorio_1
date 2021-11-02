@@ -1,5 +1,17 @@
 #include "informes.h"
 
+static int NuevoIdPedido();
+
+
+static int NuevoIdPedido()
+{
+	static int id;
+	id = 9;
+	id ++;
+
+	return id;
+}
+
 int InicializarPedidos(ePedido list[], int len)
 {
 	int estado;
@@ -55,6 +67,24 @@ int HayUnPedido (ePedido list[], int len)
 	return exist;
 }
 
+int HayPedidosCompletados (ePedido list[], int len)
+{
+	int exist;
+	exist = 0;
+	if(list != NULL && len > 0)
+	{
+		for (int i = 0; i < len; i++)
+		{
+			if(!list[i].isEmpty && list[i].estado == COMPLETADO)
+			{
+				exist = 1;
+				break;
+			}
+		}
+	}
+	return exist;
+}
+
 int EncontrarPedidoPorId(ePedido list[], int len, int id)
 {
 	int indexID;
@@ -74,7 +104,7 @@ int EncontrarPedidoPorId(ePedido list[], int len, int id)
 }
 
 
-int EncontrarUltimoIdPedido(ePedido list[], int len)
+/*int EncontrarUltimoIdPedido(ePedido list[], int len)
 {
 	int lastId;
 	lastId = 0;
@@ -90,14 +120,14 @@ int EncontrarUltimoIdPedido(ePedido list[], int len)
 		}
 	}
 	return lastId;
-}
+}*/
 
 int CargarPedido (ePedido list[], int len, int idCliente)
 {
 	int estado;
 	estado = -1;
 
-	if (list != NULL && len > 0 && HayEspacioVacioPedido(list, len))
+	if (list != NULL && len > 0)
 	{
 		system("cls");
 		printf("\tCREAR PEDIDO\n"
@@ -107,13 +137,15 @@ int CargarPedido (ePedido list[], int len, int idCliente)
 		{
 			if(list[i].isEmpty)
 			{
-				list[i].idPedido = EncontrarUltimoIdPedido(list, len) + 1;
-				list[i].idCliente = idCliente;
-				list[i].cantidadKilosTotal = PedirFlotante("\n Ingrese cantidad total de kilos a recolectar: ");
-				list[i].estado = PENDIENTE;
-				list[i].isEmpty = 0;
-
-				estado = 0;
+				if(PedirFlotante(&list[i].cantidadKilosTotal,
+				   "\n Ingrese cantidad total de kilos a recolectar: ","\n Error en datos.", 3)== 0)
+				{
+					list[i].idPedido = NuevoIdPedido();
+					list[i].idCliente = idCliente;
+					list[i].estado = PENDIENTE;
+					list[i].isEmpty = 0;
+					estado = 0;
+				}
 				break;
 			}
 		}
@@ -131,9 +163,7 @@ int ContarPedidosPendientePorID(ePedido list[], int len, int idCliente, int* can
 	contadorAuxiliar = 0;
 	estado = -1;
 
-	if (list != NULL && len > 0)
-	{
-		for(int i=0; i<len; i++)
+	for(int i=0; i<len; i++)
 		{
 			if(!list[i].isEmpty && list[i].estado == PENDIENTE && list[i].idCliente == idCliente)
 			{
@@ -143,7 +173,7 @@ int ContarPedidosPendientePorID(ePedido list[], int len, int idCliente, int* can
 		}
 
 		*cantidadPendientes = contadorAuxiliar;
-	}
+
 	return estado;
 }
 
@@ -165,20 +195,26 @@ int ContarPedidosProcesados (ePedido list[], int len)
 	return count;
 }
 
-int SumarKilosProcesados (ePedido list[], int len)
+int SumarKilosProcesados (ePedido list[], int len, float* kilos)
 {
-	float kilos = -1;
+	int estado;
+	float kilosAux = 0;
+	estado = -1;
 
 	if (list != NULL && len > 0)
 	{
-		kilos = 0;
+
 		for(int i = 0; i < len; i++)
 			{
 				if(!list[i].isEmpty && list[i].estado == COMPLETADO)
 				{
-					 kilos = list[i].kilosHDPE + list[i].kilosLDPE + list[i].kilosPP;
+					 kilosAux += list[i].kilosPP;
+					 estado = 0;
 				}
 			}
 	}
-	return kilos;
+
+	*kilos = kilosAux;
+
+	return estado;
 }
