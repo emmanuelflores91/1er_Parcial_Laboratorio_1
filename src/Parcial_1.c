@@ -9,8 +9,6 @@ int main()
 	int idCargado;
 	char respuesta[2];
 	int pendientesPorLocalidad;
-	float kilosTotales;
-	int cantidadClientes;
 	float promedioReciclado;
 
 	eCliente listaClientes [LC] =
@@ -190,7 +188,7 @@ int main()
 
 				break;
 
-				case 9:
+				case 9: //PEDIDOS PENDIENTES POR LOCALIDAD
 				system("cls");
 
 					if(HayUnaLocalidad(listaLocalidades, LC))
@@ -211,21 +209,19 @@ int main()
 
 				break;
 
-				case 10:
+				case 10: // CANTIDAD DE PP PROMEDIO POR CLIENTE
 				system("cls");
 
-					if(ContarClientes(listaClientes, LC, &cantidadClientes) == 0 &&
-						SumarKilosProcesados(listaPedidos, LP, &kilosTotales)== 0)
-					{
+				if (CalcularPromedioKilosReciclados(listaClientes, LC, listaPedidos, LP, &promedioReciclado) != -1)
+				{
+					printf("\n El promedio por cliente de los kilos procesados es: %.2f kg", promedioReciclado);
+				}
+				else
+				{
+				printf("\n No se pudo calcular promedio.");
 
-						ImprimirDosMensajes(CalcularPromedioKilosReciclados(kilosTotales, cantidadClientes, &promedioReciclado),
-								"\n No se pudo calcular promedio.", "\n El promedio por cliente de los kilos procesados es: ");
-						printf("%.2f kg", promedioReciclado);
-					}
-					else
-					{
-						printf("\n No se puede realizar la operacion.");
-					}
+				}
+
 				break;
 
 				case 11: //ALTA LOCALIDAD

@@ -23,9 +23,6 @@ int HayEspacioVacioCliente (eCliente list[], int len);
 int HayUnCliente (eCliente list[], int len);
 
 
-int ContarClientes (eCliente list[], int len, int* cantidadClientes);
-
-
 int EncontrarUltimoIdCliente(eCliente list[], int len);
 
 

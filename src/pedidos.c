@@ -22,7 +22,6 @@ int InicializarPedidos(ePedido list[], int len)
 		for(int i=0; i<len; i++)
 		{
 			list[i].isEmpty = 1;
-			list[i].idPedido = 0;
 		}
 		estado = 0;
 	}
@@ -195,26 +194,22 @@ int ContarPedidosProcesados (ePedido list[], int len)
 	return count;
 }
 
-int SumarKilosProcesados (ePedido list[], int len, float* kilos)
+int SumarKilosProcesados (ePedido listaPedidos[], int lenPedidos)
 {
-	int estado;
-	float kilosAux = 0;
-	estado = -1;
+	float acumuladorKilos;
+	acumuladorKilos = -1;
 
-	if (list != NULL && len > 0)
+	if (listaPedidos != NULL && lenPedidos > 0)
 	{
+		for(int i = 0; i < lenPedidos; i++)
 
-		for(int i = 0; i < len; i++)
+		{
+			if(!listaPedidos[i].isEmpty && listaPedidos[i].estado == COMPLETADO)
 			{
-				if(!list[i].isEmpty && list[i].estado == COMPLETADO)
-				{
-					 kilosAux += list[i].kilosPP;
-					 estado = 0;
-				}
+				acumuladorKilos += listaPedidos[i].kilosPP;
 			}
+		}
 	}
 
-	*kilos = kilosAux;
-
-	return estado;
+	return acumuladorKilos;
 }

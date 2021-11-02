@@ -434,14 +434,24 @@ int ContarPedidosPendientesPorLocalidad (ePedido listaPedidos[], int lenPedidos,
 	return estado;
 }
 
-int CalcularPromedioKilosReciclados (float kilosTotales, int cantidadClientes, float* promedio)
+int CalcularPromedioKilosReciclados (eCliente listaClientes[], int lenClientes, ePedido listaPedidos[], int lenPedidos, float* promedio )
 {
+	float auxPromedio;
+	int cantidadClientes;
+	float kilosTotales;
 	int estado;
 	estado = -1;
 
+
+	cantidadClientes = ContarClientes(listaClientes, lenClientes, listaPedidos, lenPedidos);
+
+	kilosTotales = SumarKilosProcesados(listaPedidos, lenPedidos);
+
+
 	if(cantidadClientes > 0)
 	{
-		*promedio = kilosTotales / cantidadClientes;
+		auxPromedio = kilosTotales / cantidadClientes;
+		*promedio = auxPromedio;
 		estado = 0;
 	}
 
@@ -626,7 +636,31 @@ int EditarCliente(eCliente listaClientes[], int lenClientes, eLocalidad listaLoc
 	return estado;
 }
 
+int ContarClientes (eCliente listaClientes[], int lenClientes, ePedido listaPedidos[], int lenPedidos)
+{
+	int cantidadClientes;
 
+	cantidadClientes = -1;
+
+	if (listaClientes != NULL && lenClientes > 0 && listaPedidos != NULL && lenPedidos > 0)
+	{
+		for(int i = 0; i < lenClientes; i++)
+		{
+			if(!listaClientes[i].isEmpty)
+			{
+				for(int j = 0; j < lenPedidos; j++)
+				{
+					if(!listaPedidos[j].isEmpty && listaPedidos[j].idCliente == listaClientes[i].idCliente && listaPedidos[j].estado == COMPLETADO)
+					{
+						cantidadClientes++;
+					}
+				}
+			}
+		}
+	}
+
+	return cantidadClientes;
+}
 
 
 

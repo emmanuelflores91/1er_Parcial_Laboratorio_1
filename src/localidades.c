@@ -178,3 +178,20 @@ int HayUnaLocalidad (eLocalidad list[], int len)
 	return exist;
 }
 
+int InicializarLocalidades(eLocalidad listaLocalidades[], int lenLocalidades)
+{
+	int estado;
+	estado = -1;
+
+	if (listaLocalidades != NULL && lenLocalidades > 0)
+	{
+		for(int i=0; i<lenLocalidades; i++)
+		{
+			listaLocalidades[i].isEmpty = 1;
+		}
+		estado = 0;
+	}
+
+	return estado;
+}
+
