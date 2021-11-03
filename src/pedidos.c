@@ -194,7 +194,7 @@ int ContarPedidosProcesados (ePedido list[], int len)
 	return count;
 }
 
-int SumarKilosProcesados (ePedido listaPedidos[], int lenPedidos)
+float SumarKilosProcesados (ePedido listaPedidos[], int lenPedidos)
 {
 	float acumuladorKilos;
 	acumuladorKilos = -1;

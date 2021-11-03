@@ -104,8 +104,7 @@ int PedirEnteroEnRango (int* numero, char mensaje[], char mensajeError[], int mi
 
 
 	do
-	{
-		printf("%s", mensaje);
+	{	printf("%s", mensaje);
 		if(LeerCadena(cadena, longitud) == 0 &&
 		ComprobarSiEsEntero(cadena) == 1 &&
 		atoi(cadena) >= minimo && atoi(cadena) <= maximo)
@@ -134,7 +133,8 @@ float PedirFlotante (float* numero, char mensaje [], char mensajeError[], int ca
 
 
 	do
-	{	printf("%s", mensaje);
+	{
+		printf("%s", mensaje);
 		if(LeerCadena(cadena, longitud) == 0 &&
 			ComprobarSiEsFlotante(cadena) == 1)
 		{
@@ -162,8 +162,7 @@ int PedirFlotanteEnRango (float* numero, char mensaje[], char mensajeError[], fl
 
 
 	do
-	{
-		printf("%s", mensaje);
+	{	printf("%s", mensaje);
 		if(LeerCadena(cadena, longitud) == 0 &&
 		ComprobarSiEsEntero(cadena) == 1 &&
 		atof(cadena) >= minimo && atof(cadena) <= maximo)
@@ -192,8 +191,7 @@ int PedirFlotanteGrande (double* numero, char mensaje [], char mensajeError[], i
 
 
 	do
-	{
-		printf("%s", mensaje);
+	{	printf("%s", mensaje);
 		if(LeerCadena(cadena, longitud) == 0 &&
 			ComprobarSiEsFlotante(cadena) == 1)
 		{

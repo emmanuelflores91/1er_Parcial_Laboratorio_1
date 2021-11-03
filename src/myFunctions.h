@@ -7,20 +7,37 @@
 #include <string.h>
 
 
-/// @brief = Pide un entero y lo retorna.
-/// @param mensaje = El mensaje deseado para pedir el número.
-/// @return = Retorna el número ingresado.
+/// @brief Pide un entero y lo retorna por puntero
+///
+/// @param numero = puntero que devuelve el numero ingresado.
+/// @param mensaje = mensaje al pedir el número.
+/// @param mensajeError = mensaje en caso de datos erroneos.
+/// @param cantidadReintentos = cantidad de veces que se puede volver a ingresar luego de un error.
+/// @return -1 en caso de error, 0 en caso que se haya podido realizar la operación.
 int PedirEntero (int* numero, char mensaje[], char mensajeError[], int cantidadReintentos);
 
 int PedirEntero2 (int* numero, char mensaje[], char mensajeError[], int cantidadReintentos, int* contadorErrores);
 
+/// @brief Pide un entero en un rango limitado y lo retorna por puntero
+///
+/// @param numero = puntero que devuelve el numero ingresado.
+/// @param mensaje = mensaje al pedir el número.
+/// @param mensajeError = mensaje en caso de datos erroneos.
+/// @param minimo = valor mínimo
+/// @param maximo = valor máximo
+/// @param cantidadReintentos = cantidad de veces que se puede volver a ingresar luego de un error.
+/// @return -1 en caso de error, 0 en caso que se haya podido realizar la operación.
 int PedirEnteroEnRango (int* numero, char mensaje[], char mensajeError[], int minimo, int maximo, int cantidadReintentos);
 
 
 
-/// @brief = Pide un entero mayor a cero y lo retorna.
-/// @param mensaje = El mensaje deseado para pedir el número.
-/// @return = Retorna el número ingresado.
+/// @brief Pide un entero mayor o igual a cero y lo retorna por puntero
+///
+/// @param numero = puntero que devuelve el numero ingresado.
+/// @param mensaje = mensaje al pedir el número.
+/// @param mensajeError = mensaje en caso de datos erroneos.
+/// @param cantidadIntentos = cantidad de veces que se puede volver a ingresar luego de un error.
+/// @return -1 en caso de error, 0 en caso que se haya podido realizar la operación.
 int PedirEnteroPositivo (int* numero, char mensaje[], char mensajeError[], int cantidadIntentos);
 
 /// @brief = Pide un double y lo retorna.
@@ -34,12 +51,17 @@ int PedirFlotanteGrande (double* numero, char mensaje [], char mensajeError[], i
 /// @return = Retorna el caracter ingresado convertido a mayusculas.
 char PedirCaracter (char mensaje []);
 
-
+/// @brief lee una cadena y en caso que no supere la longitud indicada, la almacena en el puntero.
+///
+/// @param cadena = la cadena donde se almacenarán los caracteres.
+/// @param longitud = largo máximo de la cadena.
+/// @return -1 en caso de error, 0 en caso que se haya podido realizar la operación.
 int LeerCadena(char cadena[], int longitud);
 
 /// @brief Pide una cadena de caracteres validando que no supere la longitud límite.
 /// @param cadena = La variable donde se almacena la cadena.
 /// @param longitud = el tamaño máximo del vector de caracteres.
+/// @param cantidadIntentos = cantidad de veces que se puede volver a ingresar luego de un error.
 /// @return = -1 en caso de error, 0 si se pudo realizar.
 int PedirCadena(char mensaje[], char mensajeError[], char cadena[], int longitud, int cantidadIntentos);
 
@@ -67,24 +89,30 @@ void ImprimirEntero (char mensaje [], int enteroParaImprimir);
 void ImprimirCaracter (char mensaje [], char caracterParaImprimir);
 
 /// @brief Imprime un mensaje u el otro en base a un número que recibe.
-/// @param mensajeError = el mensaje en caso de error.
-/// @param mensajeOk = el mensaje en caso de realizar la operación.
+/// @param mensajeMenos1 = el mensaje en caso de error.
+/// @param mensajeCero = el mensaje en caso de realizar la operación.
 /// @param estado = rebibe los valores para mostrar un mensaje o el otro.
 void ImprimirDosMensajes( int estado, char mensajeMenos1[], char mensajeCero[]);
 
 
-/// @brief = Pide un entero y se asegura que esté en un rango deseado.
-/// @param mensaje = El mensaje al pedir el entero.
-/// @param minimo = El valor mínimo aceptado.
-/// @param maximo = El valor máximo aceptado.
-/// @return = Retorna el entero validado.
+/// @brief Pide un flotante y lo retorna por puntero
+///
+/// @param numero = puntero que devuelve el numero ingresado.
+/// @param mensaje = mensaje al pedir el número.
+/// @param mensajeError = mensaje en caso de datos erroneos.
+/// @param cantidadReintentos = cantidad de veces que se puede volver a ingresar luego de un error.
+/// @return -1 en caso de error, 0 en caso que se haya podido realizar la operación.
 float PedirFlotante (float* numero, char mensaje [], char mensajeError[], int cantidadReintentos);
 
-/// @brief = Pide un flotante y se asegura que esté en un rango deseado.
-/// @param mensaje = El mensaje al pedir el flotante.
-/// @param minimo = El valor mínimo aceptado.
-/// @param maximo = El valor máximo aceptado.
-/// @return = Retorna el flotante validado.
+/// @brief Pide un flotante en un rango limitado y lo retorna por puntero
+///
+/// @param numero = puntero que devuelve el numero ingresado.
+/// @param mensaje = mensaje al pedir el número.
+/// @param mensajeError = mensaje en caso de datos erroneos.
+/// @param minimo = valor mínimo
+/// @param maximo = valor máximo
+/// @param cantidadReintentos = cantidad de veces que se puede volver a ingresar luego de un error.
+/// @return -1 en caso de error, 0 en caso que se haya podido realizar la operación.
 int PedirFlotanteEnRango (float* numero, char mensaje[], char mensajeError[], float minimo, float maximo, int cantidadReintentos);
 
 /// @brief = No permite el ingreso de un número entero específico.
@@ -106,12 +134,12 @@ int DistinguirEnteroDeFlotante (float numeroIngresado);
 
 /// @brief verifica que un numero sea un entero válido.
 /// @param datoIngresado = el número ingresado.
-/// @return = = -1 en caso de error, 0 si se pudo realizar.
+/// @return = -1 en caso de error, 0 si se pudo realizar.
 int ComprobarSiEsEntero (char datoIngresado[]);
 
 /// @brief verifica que un numero sea un decimal válido.
 /// @param datoIngresado = el número ingresado.
-/// @return = = -1 en caso de error, 0 si se pudo realizar.
+/// @return = -1 en caso de error, 0 si se pudo realizar.
 int ComprobarSiEsFlotante (char datoIngresado[]);
 
 /// @brief = Realiza la suma de dos numeros y retorna el resultado.
